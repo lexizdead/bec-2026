@@ -1,0 +1,14 @@
+{
+  // ---- sosny: міняти тільки тут ----
+  "sosny.fqbn": "arduino:avr:nano:cpu=atmega328old",   // "not in sync" при заливці -> cpu=atmega328
+  "sosny.port": "auto",                                // або "COM5" (Windows) / "/dev/ttyUSB0" (Linux)
+  "sosny.baud": "115200",                              // те саме, що SERIAL_BAUD у config.h
+
+  "files.associations": { "*.ino": "cpp" },
+  "C_Cpp.intelliSenseEngine": "disabled",
+  "clangd.arguments": ["--query-driver=**/avr-g*", "--background-index", "--header-insertion=never"],
+  "files.eol": "\n",
+  "files.encoding": "utf8",
+  "files.autoSave": "afterDelay",
+  "terminal.integrated.cwd": "${workspaceFolder}"
+}

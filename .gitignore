@@ -1,0 +1,17 @@
+# збірка arduino-cli
+build/
+compile_commands.json
+.cache/
+*.hex
+*.bin
+*.elf
+
+# архіви для звіту
+*.zip
+
+# згенеровані моделі (їх можна перегенерувати з .scad)
+*.stl
+
+# системне
+.DS_Store
+Thumbs.db

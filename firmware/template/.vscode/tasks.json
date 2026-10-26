@@ -1,0 +1,11 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    { "label": "build",   "type": "shell", "command": "make build",
+      "group": { "kind": "build", "isDefault": true }, "problemMatcher": "$gcc" },
+    { "label": "upload",  "type": "shell", "command": "make upload", "problemMatcher": "$gcc" },
+    { "label": "monitor", "type": "shell", "command": "make monitor", "problemMatcher": [] },
+    { "label": "ide (автодоповнення)", "type": "shell", "command": "make ide", "problemMatcher": [] },
+    { "label": "zip для звіту", "type": "shell", "command": "make zip", "problemMatcher": [] }
+  ]
+}

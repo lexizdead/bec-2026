@@ -1,0 +1,4 @@
+build/
+code_archive.zip
+compile_commands.json
+.cache/

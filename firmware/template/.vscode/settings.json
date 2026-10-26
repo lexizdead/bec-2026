@@ -1,0 +1,12 @@
+{
+  "files.associations": { "*.ino": "cpp" },
+  "clangd.arguments": [
+    "--query-driver=/usr/bin/avr-g*,**/avr-g*",
+    "--background-index",
+    "--header-insertion=never"
+  ],
+  "C_Cpp.intelliSenseEngine": "disabled",
+  "editor.formatOnSave": false,
+  "files.autoSave": "afterDelay",
+  "terminal.integrated.cwd": "${workspaceFolder}"
+}

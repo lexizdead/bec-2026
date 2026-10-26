@@ -1,0 +1,4 @@
+CompileFlags:
+  Remove: [-flto, -fno-fat-lto-objects, -fuse-linker-plugin, -mrelax, -fno-tree-scev-cprop]
+Diagnostics:
+  Suppress: [pp_including_mainfile_in_preamble, drv_unknown_argument]

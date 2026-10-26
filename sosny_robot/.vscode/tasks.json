@@ -1,0 +1,51 @@
+{
+  // Ctrl+Shift+B = збірка. Решта: Ctrl+Shift+P -> "Tasks: Run Task".
+  // Одні й ті самі задачі на Linux (bash) і Windows (PowerShell).
+  "version": "2.0.0",
+  "linux":   { "options": { "shell": { "executable": "bash", "args": ["-c"] } } },
+  "windows": { "options": { "shell": { "executable": "powershell.exe", "args": ["-NoProfile", "-Command"] } } },
+  "tasks": [
+    {
+      "label": "1. Збірка",
+      "type": "shell",
+      "command": "arduino-cli compile --fqbn ${config:sosny.fqbn} robot",
+      "group": { "kind": "build", "isDefault": true },
+      "problemMatcher": { "base": "$gcc", "fileLocation": "autoDetect" }
+    },
+    {
+      "label": "2. Залити на плату",
+      "type": "shell",
+      "linux": {
+        "command": "P='${config:sosny.port}'; [ \"$P\" = auto ] && P=$(ls /dev/ttyUSB* /dev/ttyACM* 2>/dev/null | head -n1); [ -n \"$P\" ] || { echo 'Board not found. Set sosny.port in .vscode/settings.json'; exit 1; }; echo \"Port: $P\"; arduino-cli compile --upload -p \"$P\" --fqbn ${config:sosny.fqbn} robot"
+      },
+      "windows": {
+        "command": "$P='${config:sosny.port}'; if ($P -eq 'auto') { $P = [System.IO.Ports.SerialPort]::GetPortNames() | Sort-Object { [int]($_ -replace '\\D','') } | Select-Object -Last 1 }; if (-not $P) { Write-Host 'Board not found. Set sosny.port in .vscode/settings.json'; exit 1 }; Write-Host \"Port: $P\"; arduino-cli compile --upload -p $P --fqbn ${config:sosny.fqbn} robot; exit $LASTEXITCODE"
+      },
+      "problemMatcher": { "base": "$gcc", "fileLocation": "autoDetect" }
+    },
+    {
+      "label": "3. Serial-монітор",
+      "type": "shell",
+      "linux": {
+        "command": "P='${config:sosny.port}'; [ \"$P\" = auto ] && P=$(ls /dev/ttyUSB* /dev/ttyACM* 2>/dev/null | head -n1); [ -n \"$P\" ] || { echo 'Board not found'; exit 1; }; arduino-cli monitor -p \"$P\" -c baudrate=${config:sosny.baud}"
+      },
+      "windows": {
+        "command": "$P='${config:sosny.port}'; if ($P -eq 'auto') { $P = [System.IO.Ports.SerialPort]::GetPortNames() | Sort-Object { [int]($_ -replace '\\D','') } | Select-Object -Last 1 }; if (-not $P) { Write-Host 'Board not found'; exit 1 }; arduino-cli monitor -p $P -c baudrate=${config:sosny.baud}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "4. Автодоповнення (один раз)",
+      "type": "shell",
+      "command": "arduino-cli compile --fqbn ${config:sosny.fqbn} --only-compilation-database --build-path build robot",
+      "problemMatcher": []
+    },
+    {
+      "label": "5. Архів коду для звіту",
+      "type": "shell",
+      "linux":   { "command": "rm -f code_archive.zip && zip -qr code_archive.zip robot && echo code_archive.zip" },
+      "windows": { "command": "Compress-Archive -Force -Path robot -DestinationPath code_archive.zip; Write-Host code_archive.zip" },
+      "problemMatcher": []
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+CompileFlags:
+  CompilationDatabase: build
+  Remove: [-flto, -fno-fat-lto-objects, -fuse-linker-plugin, -mrelax, -fno-tree-scev-cprop]
+Diagnostics:
+  Suppress: [pp_including_mainfile_in_preamble, drv_unknown_argument]
+---
+# .ino-вкладки редактор бачить окремо від решти, тому тут він показує хибні помилки.
+# Їх вимкнено; справжні помилки показує "1. Збірка" (Ctrl+Shift+B).
+If:
+  PathMatch: .*\.ino
+CompileFlags:
+  Add: [-xc++, -include, Arduino.h]
+Diagnostics:
+  Suppress: "*"
